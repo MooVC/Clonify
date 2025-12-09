@@ -1,12 +1,14 @@
 ﻿namespace Clonify;
 
+using System;
 using System.Collections.Immutable;
+using Clonify.Semantics;
+using Clonify.Syntax;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Clonify.Semantics;
-using Clonify.Syntax;
+using Monify.Semantics;
 using static Clonify.AttributeAnalyzer_Resources;
 using Manager = System.Resources.ResourceManager;
 
@@ -56,6 +58,22 @@ public sealed class AttributeAnalyzer
         description: GetResourceString(ResourceManager, nameof(PartialTypeRuleDescription)),
         helpLinkUri: GetHelpLinkUri("CLNFY02"));
 
+    /// <summary>
+    /// Gets the descriptor associated with the already implements rule (CLNFY03).
+    /// </summary>
+    /// <value>
+    /// The descriptor associated with the already implements type rule (CLNFY03).
+    /// </value>
+    internal static DiagnosticDescriptor AlreadyImplementsRule { get; } = new(
+        "CLNFY03",
+        GetResourceString(ResourceManager, nameof(AlreadyImplementsRuleTitle)),
+        GetResourceString(ResourceManager, nameof(AlreadyImplementsRuleMessageFormat)),
+        "Usage",
+        DiagnosticSeverity.Info,
+        isEnabledByDefault: true,
+        description: GetResourceString(ResourceManager, nameof(AlreadyImplementsRuleDescription)),
+        helpLinkUri: GetHelpLinkUri("CLNFY03"));
+
     /// <inheritdoc/>
     public sealed override void Initialize(AnalysisContext context)
     {
@@ -88,6 +106,13 @@ public sealed class AttributeAnalyzer
         if (IsViolatingPartialTypeRule(type, out string? identifier))
         {
             Raise(context, PartialTypeRule, location, identifier);
+
+            return;
+        }
+
+        if (IsViolatingAlreadyImplementsRule(context, type))
+        {
+            Raise(context, AlreadyImplementsRule, location);
         }
     }
 
@@ -171,6 +196,23 @@ public sealed class AttributeAnalyzer
         }
 
         return false;
+    }
+
+    private static bool IsViolatingAlreadyImplementsRule(SyntaxNodeAnalysisContext context, TypeDeclarationSyntax? type)
+    {
+        if (type is null)
+        {
+            return false;
+        }
+
+        INamedTypeSymbol? symbol = context.SemanticModel.GetDeclaredSymbol(type);
+
+        if (symbol is null)
+        {
+            return false;
+        }
+
+        return symbol.IsClonable(context.Compilation) && symbol.HasClone();
     }
 
     private static void Raise(SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, params object?[] messageArgs)

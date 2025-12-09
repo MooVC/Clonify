@@ -1,8 +1,9 @@
 ﻿namespace Clonify.Semantics;
 
 using System.Collections.Immutable;
-using Microsoft.CodeAnalysis;
 using Clonify.Model;
+using Microsoft.CodeAnalysis;
+using Monify.Semantics;
 
 /// <summary>
 /// Provides extensions relating to <see cref="INamedTypeSymbol"/>.
@@ -15,6 +16,9 @@ internal static partial class INamedTypeSymbolExtensions
     /// <param name="subject">
     /// The subject from which the semantics are identified.
     /// </param>
+    /// <param name="compilation">
+    /// The <see cref="Compilation"/> used to source the symbol for <see cref="ICloneable"/>.
+    /// </param>
     /// <param name="nesting">
     /// The declaration syntax for the parents of the <paramref name="syntax"/>.
     /// </param>
@@ -24,7 +28,7 @@ internal static partial class INamedTypeSymbolExtensions
     /// <remarks>
     /// If the declaration associated with the type cannot be determined, the method will return <see langword="null" />.
     /// </remarks>
-    public static Subject? ToSubject(this INamedTypeSymbol subject, ImmutableArray<Nesting> nesting)
+    public static Subject? ToSubject(this INamedTypeSymbol subject, Compilation compilation, ImmutableArray<Nesting> nesting)
     {
         string @namespace = subject.ContainingNamespace.IsGlobalNamespace
            ? string.Empty
@@ -39,6 +43,8 @@ internal static partial class INamedTypeSymbolExtensions
 
         return new Subject
         {
+            HasClonable = subject.HasClone(),
+            IsClonable = subject.IsClonable(compilation),
             Name = subject.Name,
             Namespace = @namespace,
             Nesting = nesting,

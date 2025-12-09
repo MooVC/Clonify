@@ -1,10 +1,10 @@
 ﻿namespace Clonify.Syntax;
 
 using System.Collections.Immutable;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Clonify.Model;
 using Clonify.Semantics;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 /// <summary>
 /// Provides extensions relating to <see cref="TypeDeclarationSyntax"/>.

@@ -11,6 +11,22 @@ using Valuify;
 internal sealed partial class Subject
 {
     /// <summary>
+    /// Gets a value indicating whether or not the subject implements <see cref="ICloneable.Clone"/>.
+    /// </summary>
+    /// <value>
+    /// A value indicating whether or not the subject implements <see cref="ICloneable.Clone"/>.
+    /// </value>
+    public bool HasClonable { get; set; }
+
+    /// <summary>
+    /// Gets a value indicating whether or not the subject declares that it implements <see cref="ICloneable"/>.
+    /// </summary>
+    /// <value>
+    /// A value indicating whether or not the subject declares that it implements <see cref="ICloneable"/>.
+    /// </value>
+    public bool IsClonable { get; set; }
+
+    /// <summary>
     /// Gets a value indicating whether or not the subject belongs to the global namespace.
     /// </summary>
     /// <value>

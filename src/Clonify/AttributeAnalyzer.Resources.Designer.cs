@@ -61,6 +61,33 @@ namespace Clonify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The type already implements the Clone method, rendering Clonify redundant..
+        /// </summary>
+        internal static string AlreadyImplementsRuleDescription {
+            get {
+                return ResourceManager.GetString("AlreadyImplementsRuleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type already implements the Clone method, rendering Clonify redundant..
+        /// </summary>
+        internal static string AlreadyImplementsRuleMessageFormat {
+            get {
+                return ResourceManager.GetString("AlreadyImplementsRuleMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type already implements Clone.
+        /// </summary>
+        internal static string AlreadyImplementsRuleTitle {
+            get {
+                return ResourceManager.GetString("AlreadyImplementsRuleTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Clonify attribute is only supported on type declarations..
         /// </summary>
         internal static string CompatibleTargetTypeRuleDescription {

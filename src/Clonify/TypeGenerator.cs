@@ -2,11 +2,11 @@
 
 using System;
 using System.Linq;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Clonify.Model;
 using Clonify.Strategies;
 using Clonify.Syntax;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 /// <summary>
 /// Generates source for a type that is annotated with the Clonify attribute.

@@ -120,11 +120,20 @@
   <data name="CompatibleTargetTypeRuleDescription" xml:space="preserve">
     <value>The Clonify attribute is only supported on type declarations.</value>
   </data>
+  <data name="AlreadyImplementsRuleDescription" xml:space="preserve">
+    <value>The type already implements the Clone method, rendering Clonify redundant.</value>
+  </data>
   <data name="CompatibleTargetTypeRuleMessageFormat" xml:space="preserve">
     <value>The Clonify attribute is only supported on type declarations.</value>
   </data>
+  <data name="AlreadyImplementsRuleMessageFormat" xml:space="preserve">
+    <value>The type already implements the Clone method, rendering Clonify redundant.</value>
+  </data>
   <data name="CompatibleTargetTypeRuleTitle" xml:space="preserve">
     <value>Type is not compatible with Clonify</value>
+  </data>
+  <data name="AlreadyImplementsRuleTitle" xml:space="preserve">
+    <value>Type already implements Clone</value>
   </data>
   <data name="PartialTypeRuleDescription" xml:space="preserve">
     <value>Type must be marked as Partial to facilitate code generation.</value>
