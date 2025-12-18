@@ -17,6 +17,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="System.Collections.Immutable" />
     <EmbeddedResource Update="AttributeAnalyzer.Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
